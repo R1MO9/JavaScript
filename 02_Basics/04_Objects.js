@@ -67,3 +67,15 @@ const users = [
     }
 ]
 console.log(users[1].id);
+
+const course = {
+    courseName: "JavaScript",
+    price: "999",
+    courseInstructor: "Hitesh"
+}
+
+// course.courseInstructor
+
+const {courseInstructor : teacher} = course;
+console.log(teacher);
+
