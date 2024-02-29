@@ -1,0 +1,9 @@
+//Step - 1
+Creates 
+1).Global Execution Context(G.E.C)
+2).Function Execution Context(F.E.C) is created for attendence function
+3).Eval Execution Context(E.E.C) is created for console.log
+
+//Step - 2
+1). Memory Creation Phase
+2). Execution Phase
