@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difficult Number Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d0d0d;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            width: 300px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #00bfff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: calc(100% - 24px);
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #00bfff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #007acc;
+        }
+
+        #message {
+            font-weight: bold;
+            color: #00bfff;
+            margin-top: 20px;
+        }
+
+        #previousGuesses {
+            font-style: italic;
+            color: #ccc;
+            display: block;
+            margin-top: 10px;
+        }
+
+        #attempts {
+            font-weight: bold;
+            color: #00bfff;
+        }
+
+        .button {
+            background-color: #00bfff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #007acc;
+        }
+
+        .lowOrHigh {
+            font-style: italic;
+            color: #f44336;
+            margin-top: 10px;
+        }
+
+        .congrats {
+            color: green;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <p>Guess a number between 1 and 50</p>
+        <p>You have 8 attempts to guess the right number</p>
+        <p>Good Luck!</p>
+        <h2>Guess The Number</h2>
+        <div>
+            <input type="number" id="guess" placeholder="Enter your guess">
+            <button id="submit">Submit</button>
+            <p class="error" id="error"></p>
+        </div>
+        <div class="resultParas">
+            <p>Number of guesses left: <span id="attempts">8</span></p>
+            <p>Previous guesses: <span id="previousGuesses"></span></p>
+            <p class="lowOrHigh"></p>
+        </div>
+    </div>
+    <script>
+        let randomNumber = Math.floor(Math.random() * 50) + 1;
+        const submit = document.querySelector('#submit');
+        const userInput = document.querySelector('#guess');
+        const guessSlot = document.querySelector('#previousGuesses');
+        const remaining = document.querySelector('#attempts');
+        const lowOrHigh = document.querySelector('.lowOrHigh');
+        const error = document.querySelector('#error');
+        const startOver = document.querySelector('.resultParas');
+        let prevGuess = [];
+        let numGuess = 1;
+        let playGame = true;
+        submit.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (playGame) {
+                const guess = parseInt(userInput.value);
+                validateGuess(guess);
+            }
+        });
+        function validateGuess(guess) {
+            if (!Number.isInteger(guess) || guess < 1 || guess > 50) {
+                error.textContent = "Enter a Valid Integer between 1 to 50"; // Display error message
+            } else {
+                error.textContent = "";
+                prevGuess.push(guess);
+                if (numGuess === 8) {
+                    displayGuess(guess);
+                    displayMessage(`Game Over! The number was ${randomNumber}`);
+                    endGame();
+                } else {
+                    displayGuess(guess);
+                    checkGuess(guess);
+                }
+            }
+        }
+        function checkGuess(guess) {
+            if (guess === randomNumber) {
+                displayMessage(`Congratulations! You guessed the correct number`, 'congrats');
+                endGame();
+            } else {
+                displayMessage(`Wrong! Try Again`);
+                if (guess < randomNumber) {
+                    lowOrHigh.textContent = 'Last guess was too low';
+                } else {
+                    lowOrHigh.textContent = 'Last guess was too high';
+                }
+            }
+        }
+        function displayGuess(guess) {
+            userInput.value = '';
+            guessSlot.textContent += `${guess} `;
+            numGuess++;
+            remaining.textContent = `${8 - numGuess + 1}`;
+        }
+        function displayMessage(message, className) {
+            lowOrHigh.innerHTML = `<h2 class="${className}">${message}</h2>`;
+        }
+        function endGame() {
+            userInput.value = '';
+            userInput.setAttribute('disabled', '');
+            playGame = false;
+            addRestartButton();
+        }
+        function addRestartButton() {
+            const p = document.createElement('p');
+            p.classList.add('button');
+            p.textContent = 'Start New Game';
+            startOver.appendChild(p);
+            p.addEventListener('click', () => {
+                randomNumber = Math.floor(Math.random() * 50) + 1;
+                prevGuess = [];
+                numGuess = 1;
+                guessSlot.textContent = '';
+                lowOrHigh.textContent = '';
+                remaining.textContent = '8';
+                userInput.removeAttribute('disabled');
+                startOver.removeChild(p);
+                playGame = true;
+            });
+        }
+    </script>
+</body>
+
+</html>

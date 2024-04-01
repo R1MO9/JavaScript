@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Background Color</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            color: black;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            font: bolder;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            color: #fff;
+        }
+        
+        .btn:hover {
+            filter: brightness(0.9);
+        }
+
+        .btn#black, .btn#navy {
+            color: #fff;
+        }
+
+        .btn#white, .btn#yellow, .btn#lime, .btn#cyan{
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Change Background Color</h1>
+        <div>
+            <button id="red" class="btn" style="background-color: red;">Red</button>
+            <button id="green" class="btn" style="background-color: green;">Green</button>
+            <button id="blue" class="btn" style="background-color: blue;">Blue</button>
+            <button id="yellow" class="btn" style="background-color: yellow;">Yellow</button>
+            <button id="black" class="btn" style="background-color: black;">Black</button>
+            <button id="white" class="btn" style="background-color: white;">White</button>
+            <button id="purple" class="btn" style="background-color: purple;">Purple</button>
+            <button id="orange" class="btn" style="background-color: orange;">Orange</button>
+            <button id="pink" class="btn" style="background-color: pink;">Pink</button>
+            <button id="brown" class="btn" style="background-color: brown;">Brown</button>
+            <button id="gray" class="btn" style="background-color: gray;">Gray</button>
+            <button id="cyan" class="btn" style="background-color: cyan;">Cyan</button>
+            <button id="magenta" class="btn" style="background-color: magenta;">Magenta</button>
+            <button id="lime" class="btn" style="background-color: lime;">Lime</button>
+            <button id="teal" class="btn" style="background-color: teal;">Teal</button>
+            <button id="indigo" class="btn" style="background-color: indigo;">Indigo</button>
+            <button id="violet" class="btn" style="background-color: violet;">Violet</button>
+            <button id="navy" class="btn" style="background-color: navy;">Navy</button>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.btn');
+        const body = document.body;
+        const h1 = document.querySelector('h1');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                body.style.backgroundColor = e.target.id;
+                if (e.target.id === 'black' || e.target.id === 'navy') {
+                    h1.style.color = 'white';
+                }
+                else if (e.target.id === 'white' || e.target.id === 'yellow' || e.target.id === 'lime') {
+                    h1.style.color = 'black';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
