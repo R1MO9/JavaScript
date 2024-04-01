@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1></h1>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+</body>
+<script>
+    document.getElementById("start").addEventListener('click', () => {
+        const startPrinting = setInterval(() => {
+            console.log("Rimon");
+        }, 1000);
+
+        document.getElementById("stop").addEventListener('click', () => {
+            clearInterval(startPrinting)
+        })
+    })
+    
+
+    // clearInterval(startPrinting)
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>
+            Unlimited Background Color
+        </h1>
+
+        <div>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelector('body').style.backgroundColor = "#121212"
+    document.querySelector('body').style.color = "#fff"
+
+    const randomColor = () => {
+        const hex = "0123456789ABCDEF"
+        let hexCode = "#"
+        for(let i = 0; i < 6 ; i++) {
+            const random = Math.floor(Math.random()* 16)
+            hexCode += hex[random]
+        }
+        console.log(hexCode);
+        return hexCode;
+    }
+    
+    document.querySelector('#start').addEventListener('click', (e) => {
+        let startChanging = setInterval(() => {
+            
+            document.body.style.backgroundColor = randomColor()
+            document.body.style.color = randomColor()
+            
+        }, 1000)
+
+        document.querySelector("#stop").addEventListener('click', (e) => {
+            clearInterval(startChanging)
+            startChanging = null
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Amazing Images</h2>
+    <div>
+        <ul id="images">
+            <li><img width="200px" id="grass" src="https://images.pexels.com/photos/20168397/pexels-photo-20168397/free-photo-of-a-close-up-
+                of-some-flowers-in-the-grass.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Grass">
+            </li>
+            <li><img width="200px" id="bird" src="https://images.pexels.com/photos/20623968/pexels-photo-20623968/free-photo-of-a-robin-sits-
+                on-top-of-a-bush-in-autumn.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Bird">
+            </li>
+            <li><img width="200px" id="flower" src="https://images.pexels.com/photos/20775144/pexels-photo-20775144.jpeg?auto=
+                compress&cs=tinysrgb&w=600&lazy=load" alt="Flower">
+            </li>
+            <li><img width="200px" id="sunset" src="https://images.pexels.com/photos/12727893/pexels-photo-12727893.jpeg?auto=
+                compress&cs=tinysrgb&w=600&lazy=load" alt="SunSet">
+            </li>
+
+            <li><a style="color: aqua;" href="#" id="" google>Google</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    // Outdated approach
+    // document.getElementById('flower').onClick(() => {
+    //     alert('You clicked on the flower image');
+    // })
+
+    
+    // bubbling up
+
+    // #Bird image clicked
+    // #Clicked inside the ul
+    document.getElementById('bird').addEventListener('click', (e) => {
+        //console.log("Bird image clicked");
+    }, false)
+    document.getElementById('images').addEventListener('click', (e) => {
+        //console.log("Clicked inside the ul");
+    }, false)
+
+
+    // capturing mode
+
+    // #Clicked inside the ul
+    // #Bird image clicked
+    document.getElementById('bird').addEventListener('click', (e) => {
+        console.log("Bird image clicked");
+        // e.stopPropagation()
+    }, true)
+    document.getElementById('images').addEventListener('click', (e) => {
+        //console.log("Clicked inside the ul");
+    }, true)
+
+
+
+
+
+    document.getElementById('images').addEventListener('click', (e) => {
+        console.log(e.target.tagName);
+
+        if(e.target.tagName === 'IMG') {
+            console.log(e.target.id);
+            e.target.parentNode.style.display = 'none';
+        }
+    })
+
+
+
+    // type, timestamp, defaultPrevented
+    // target, toElement, srcElement, currentTarget
+    // clientX, clientY, screenX, screenY
+    // altKey, ctrlKey, shiftKey, keyCode
+</script>
+
+</html>
